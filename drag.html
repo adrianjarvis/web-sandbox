@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Draggable - Default functionality</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+  <style>
+  #draggable { width: 150px; height: 150px; padding: 0.5em; }
+  #draggable2 { width: 150px; height: 150px; padding: 0.5em; }
+  #draggable3 { width: 150px; height: 150px; padding: 0.5em; }
+  </style>
+  <script>
+  $(function() {
+    $( "#draggable" ).draggable({ snap: true });
+    $( "#draggable2" ).draggable({ snap: true });
+    $( "#draggable3" ).draggable({ snap: true });
+    $( "#draggable" ).resizable();
+    $( "#draggable2" ).resizable();
+	$("#tabs").tabs();
+	$( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+	$("#draggable2").resize(function() {
+		$("#image").width($("#draggable2").width());
+		$("#image").height($("#draggable2").height());
+	});
+	setInterval(function() {$.ajax({url:"http://api.openweathermap.org/data/2.5/weather?q=Wellington,nz",
+		success: function(data){
+			$("#draggable3").html("<p>Wellington Weather: " + data.weather[0].description + "</p>");
+		}});
+  },3000);
+  });
+  </script>
+</head>
+<body>
+<div id="tabs">
+	<ul id="sortable">
+		<li><a href="#tabs-1">Simple</a></li>
+		<li><a href="#tabs-2">Biggie</a></li>
+	</ul>
+	<div id="tabs-1">
+		<div id="draggable" class="ui-widget-content">
+		  <p>Drag me around</p>
+		</div>
+		<div id="draggable3" class="ui-widget-content">
+		</div>
+	</div>
+	<div id="tabs-2">
+		<p>Biggie</p>
+		<div id="draggable2" class="ui-widget-content" >
+		  <img id="image" src="http://www.bom.gov.au/weather-services/bushfire/images/bwf6.png" height="140", width="140"/>
+		</div>
+	</div> 
+</div> 
+</body>
+</html>
